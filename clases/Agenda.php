@@ -50,7 +50,7 @@
         {
             $sql = "UPDATE agenda SET nombre= ?, actividad= ?, descripcion= ?, fecha_inicio= ?, fecha_limite= ?, recordatorio= ?, estado= ? WHERE id= ?";
             $stmt = mysqli_prepare($this->conexion, $sql);
-            mysqli_stmt_bind_param($stmt, "sisi", $this->nombre, $this->actividad, $this->descripcion, $this->fecha_inicio, $this->fecha_limite, $this->recordatorio, $this->estado, $id);
+            mysqli_stmt_bind_param($stmt, "sssssssi", $this->nombre, $this->actividad, $this->descripcion, $this->fecha_inicio, $this->fecha_limite, $this->recordatorio, $this->estado, $id);
 
             if (mysqli_stmt_execute($stmt)) {
                 echo "Actividad actualizada correctamente.";

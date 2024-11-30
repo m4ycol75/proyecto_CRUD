@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $estado= $_POST['estado'];
 
     echo $agenda->registrarActividad($nombre, $actividad, $descripcion, $fecha_inicio, $fecha_limite, $recordatoprio, $estado);
+    header("Location: inicio.php");
 }
 
 ?>

@@ -67,7 +67,9 @@ require_once '../conexion/conexion.php';
                                 <td><?php echo $fila["estado"]
                                     ?></td>
                                 <td><a href="editar.php" class="btn btn-success">Editar</a>
-                                    <a href="" class="btn btn-danger">Eliminar</a>
+                                    <a href="eliminar.php?id=<?php echo $fila['id']; ?>" class="btn btn-danger" 
+                                    onclick="return confirm('¿Estás seguro de que quieres eliminar este cliente?');">Eliminar</a>
+                                    
                                 </td>
                             </tr>
                     <?php
