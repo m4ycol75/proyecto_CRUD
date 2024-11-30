@@ -9,7 +9,15 @@
 
         public function __construct($conexion, $nombre  = null, $actividad  = null, $descripcion  = null, $fecha_inicio  = null, $fecha_limite  = null, $recordatorio = null, $estado = null)
         {
+            
             $this->conexion = $conexion;
+            $this->nombre = $nombre;
+            $this->actividad = $nombre;
+            $this->descripcion = $descripcion;
+            $this->fecha_inicio = $fecha_inicio;
+            $this->fecha_limite = $fecha_limite;
+            $this->recordatorio = $recordatorio;
+            $this->estado = $estado;
         }
 
         public function registrarActividad($nombre,$actividad,$descripcion,$fecha_inicio,$fecha_limite,$recordatorio,$estado)
@@ -48,14 +56,14 @@
 
         public function actualizarActividad($id)
         {
-            $sql = "UPDATE agenda SET nombre= ?, actividad= ?, descripcion= ?, fecha_inicio= ?, fecha_limite= ?, recordatorio= ?, estado= ? WHERE id= ?";
+            $sql = "UPDATE `agenda` SET `nombre`='?',`actividad`='?',`descripcion`='?',`fecha_inicio`='?',`fecha_limite`='?',`recordatorio`='?',`estado`='?' WHERE id = ?";
             $stmt = mysqli_prepare($this->conexion, $sql);
-            mysqli_stmt_bind_param($stmt, "sssssssi", $this->nombre, $this->actividad, $this->descripcion, $this->fecha_inicio, $this->fecha_limite, $this->recordatorio, $this->estado, $id);
-
-            if (mysqli_stmt_execute($stmt)) {
-                echo "Actividad actualizada correctamente.";
-            } else {
-                echo "Error al actualizar la actividad: " . mysqli_error($this->conexion);
+            mysqli_stmt_bind_param($stmt,"ssss",$this->nombre,$this->actividad,$this->descripcion,$this->fecha_inicio,$this->fecha_limite,$this->recordatorio,$this->estado,$id);
+            
+            if(mysqli_stmt_execute($stmt)){
+                echo "Actualizado correctamente";
+            }else{
+                echo "Error al actualizar".mysqli_error($this->conexion);
             }
 
             mysqli_stmt_close($stmt);
