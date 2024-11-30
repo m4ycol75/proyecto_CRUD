@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-11-2024 a las 15:13:02
+-- Tiempo de generación: 30-11-2024 a las 19:27:09
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,6 +39,13 @@ CREATE TABLE `agenda` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `agenda`
+--
+
+INSERT INTO `agenda` (`id`, `nombre`, `actividad`, `descripcion`, `fecha_inicio`, `fecha_limite`, `recordatorio`, `estado`) VALUES
+(1, 'Maicol Guzman Miranda', 'Reunion de trabajo ', 'Junta de tranajo para conversar ', '2024-11-30', '2024-11-30', 'es urgente y necesito estar presente', 'por inciar');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -56,7 +63,7 @@ ALTER TABLE `agenda`
 -- AUTO_INCREMENT de la tabla `agenda`
 --
 ALTER TABLE `agenda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
