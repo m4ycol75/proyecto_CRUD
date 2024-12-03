@@ -1,43 +1,30 @@
 <?php
 session_start();
-require_once('../Proyecto_CRUD/clases/Agenda.php');
-require_once(__DIR__ . '/clases/Agenda.php');
-require_once(__DIR__ . '/clases/Usuario.php');
-
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $correo = mysqli_real_escape_string($conexion, $_POST['correo']);
-    $contraseña = $_POST['contrasena'];
-
-    $query = "SELECT * FROM usuario WHERE correo = '$correo'";
-    $result = mysqli_query($conexion, $query);
-
-    if (mysqli_num_rows($result) > 0) {
-        $user = mysqli_fetch_assoc($result);
-
-        // Verificar la contraseña
-        if (password_verify($password, $user['contrasena'])) {
-            $_SESSION['usuario'] = $user['nombre'];
-            $_SESSION['autenticado'] = true; 
-            header("Location: operaciones/inicio.php");
-            exit;
-        } else {
-            echo "Contraseña incorrecta.";
-        }
-    } else {
-        echo "El usuario no existe.";
-    }
-}
+require_once '../Proyecto_CRUD/clases/Agenda.php' ;
+require_once 'clases/Usuario.php';
+require_once 'conexion/conexion.php';
 
 $usuario = new Usuario($conexion);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $correo = $_POST['email'];
-    $contraseña_encriptada = $_POST['contrasena'];
+    // Recibir y sanitizar entradas
+    $correo = mysqli_real_escape_string($conexion, $_POST['email']);
+    $contraseña = $_POST['password'];
 
-    echo $usuario->iniciarSesion($correo, $contraseña);
+    // Llamar a la función iniciarSesion
+    $resultado = $usuario->iniciarSesion($correo, $contraseña);
+
+    if ($resultado === "success") {
+        header("Location: panel.php"); // Redirigir si es exitoso
+        exit;
+    } else {
+        echo $resultado; // Mostrar mensaje de error
+    }
 }
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,11 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="mb-3">
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Correo Electronico</label>
-                                    <input type="email" class="form-control" name="correo" placeholder="Ingrese su correo electronico">
+                                    <input type="email" class="form-control" name="email" placeholder="Ingrese su correo electronico">
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" name="contrasena" placeholder="Ingrese tu contraseña">
+                                    <input type="password" class="form-control" name="password" placeholder="Ingrese tu contraseña">
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" name="rememberMe">
@@ -75,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <button type="submit" class="btn btn-primary w-100">Inicair Sesion</button>
                         </form>
                         <div class="mb-3">
-                            <label for="">¿Todavia no tienes una cuenta? <a href="registrar.php">Registrate</a></label>
+                            <label for="">¿Todavia no tienes una cuenta? <a href="registrar.php">Registrate</a> o deseas volver al <a href="index.php">Inicio</a></label>
                         </div>
                     </div>
                 </div>

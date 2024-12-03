@@ -1,6 +1,7 @@
 <?php
 require_once '../clases/Agenda.php';
 require_once '../conexion/conexion.php';
+require_once ('auth.php');
 
 $agenda = new Agenda($conexion);
 
@@ -10,10 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $descripcion= $_POST['descripcion'];
     $fecha_inicio= $_POST['fecha_inicio'];
     $fecha_limite= $_POST['fecha_limite'];
-    $recordatoprio= $_POST['recordatorio'];
+    $recordatorio= $_POST['recordatorio'];
     $estado= $_POST['estado'];
 
-    echo $agenda->registrarActividad($nombre, $actividad, $descripcion, $fecha_inicio, $fecha_limite, $recordatoprio, $estado);
+    echo $agenda->registrarActividad($nombre, $actividad, $descripcion, $fecha_inicio, $fecha_limite, $recordatorio, $estado);
     header("Location: inicio.php");
 }
 
@@ -37,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form action="" method="post">
                 <div class="row">
                     <div class="mb-3 mt-3 col-6">
-                        <label for="" class="form-label">Nombre </label>
+                        <label for="" class="form-label"> Nombre </label>
                         
                         <input type="text" class="form-control" name="nombre">
                     </div>

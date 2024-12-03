@@ -1,5 +1,6 @@
  <?php
-    require_once '../conexion/conexion.php';
+require_once __DIR__ . '/../conexion/conexion.php';
+
 
     class Agenda
     {
@@ -7,17 +8,10 @@
         public $conexion;
 
 
-        public function __construct($conexion, $nombre  = null, $actividad  = null, $descripcion  = null, $fecha_inicio  = null, $fecha_limite  = null, $recordatorio = null, $estado = null)
+        public function __construct($conexion)
         {
-            
+        
             $this->conexion = $conexion;
-            $this->nombre = $nombre;
-            $this->actividad = $nombre;
-            $this->descripcion = $descripcion;
-            $this->fecha_inicio = $fecha_inicio;
-            $this->fecha_limite = $fecha_limite;
-            $this->recordatorio = $recordatorio;
-            $this->estado = $estado;
         }
 
         public function registrarActividad($nombre,$actividad,$descripcion,$fecha_inicio,$fecha_limite,$recordatorio,$estado)
@@ -54,11 +48,11 @@
         }
 
 
-        public function actualizarActividad($id)
+        public function actualizarActividad($id,$nombre,$actividad,$descripcion,$fecha_inicio,$fecha_limite,$recordatorio,$estado)
         {
-            $sql = "UPDATE `agenda` SET `nombre`='?',`actividad`='?',`descripcion`='?',`fecha_inicio`='?',`fecha_limite`='?',`recordatorio`='?',`estado`='?' WHERE id = ?";
+            $sql = "UPDATE agenda SET nombre=?,actividad=?,descripcion=?,fecha_inicio=?,fecha_limite=?,recordatorio=?,estado=? WHERE id = ?";
             $stmt = mysqli_prepare($this->conexion, $sql);
-            mysqli_stmt_bind_param($stmt,"ssss",$this->nombre,$this->actividad,$this->descripcion,$this->fecha_inicio,$this->fecha_limite,$this->recordatorio,$this->estado,$id);
+            mysqli_stmt_bind_param($stmt,"sssssssi",$nombre,$actividad,$descripcion,$fecha_inicio,$fecha_limite,$recordatorio,$estado,$id);
             
             if(mysqli_stmt_execute($stmt)){
                 echo "Actualizado correctamente";

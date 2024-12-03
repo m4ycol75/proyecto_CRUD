@@ -1,5 +1,5 @@
 <?php
-    require_once 'conexion/conexion.php';
+require_once 'conexion/conexion.php';
 
 class Usuario
 {
@@ -16,7 +16,7 @@ class Usuario
         $contraseña_encriptada = password_hash($contraseña, PASSWORD_DEFAULT);
         $sql = "INSERT INTO `usuario`(`nombre`, `correo`, `contraseña`) VALUES (?, ?, ? )";
         $stmt = mysqli_prepare($this->conexion, $sql);
-        mysqli_stmt_bind_param($stmt, "sss",$nombre, $correo, $contraseña_encriptada);
+        mysqli_stmt_bind_param($stmt, "sss", $nombre, $correo, $contraseña_encriptada);
 
         if (mysqli_stmt_execute($stmt)) {
             echo "Usuario registrado correctamente.";
@@ -25,25 +25,27 @@ class Usuario
         }
 
         mysqli_stmt_close($stmt);
-    
     }
 
-    public function iniciarSesion($correo, $password)
-    {
-        $sql = "SELECT * FROM usuario WHERE correo = 'correo'";
-        $resultado = mysqli_query($this->conexion, $sql);
+    public function iniciarSesion($correo, $contraseña)
+{
+    $sql = "SELECT * FROM usuario WHERE correo = '$correo'";
+    $resultado = mysqli_query($this->conexion, $sql);
 
-        if (mysqli_num_rows($resultado) > 0) {
-            $usuario = mysqli_fetch_assoc($resultado);
+    if (mysqli_num_rows($resultado) > 0) {
+        $usuario = mysqli_fetch_assoc($resultado);
 
-            if (password_verify($password, $usuario['contrasena'])) {
-                return "Bienvenido, " . $usuario['nombre'];
-            } else {
-                return "Contraseña incorrecta";
-            }
+        if (password_verify($contraseña, $usuario['contraseña'])) {
+            // Crear las variables de sesión aquí
+            $_SESSION['usuario'] = $usuario['nombre'];
+            $_SESSION['autenticado'] = true;
+            return "success"; // Devuelve "success" si todo está correcto
         } else {
-            echo "El usuario no existe";
+            return "Contraseña incorrecta";
         }
+    } else {
+        return "El usuario no existe";
     }
 }
-?>
+
+}

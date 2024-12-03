@@ -1,6 +1,8 @@
 <?php
 require_once '../clases/Agenda.php';
 require_once '../conexion/conexion.php';
+require_once('auth.php');
+
 
 
 ?>
@@ -25,6 +27,7 @@ require_once '../conexion/conexion.php';
                 <h1>Agenda Personal</h1>
             </div>
             <div class="col text-end">
+                <a href="../panel.php" class="btn btn-warning">Inicio</a>
                 <a href="nuevo.php" class="btn btn-primary">Nueva Actividad</a>
             </div>
         </div>
@@ -66,7 +69,7 @@ require_once '../conexion/conexion.php';
                                     ?></td>
                                 <td><?php echo $fila["estado"]
                                     ?></td>
-                                <td><a href="editar.php" class="btn btn-success">Editar</a>
+                                <td><a href="editar.php?id=<?php echo $fila['id']; ?>" class="btn btn-success">Editar</a>
                                     <a href="eliminar.php?id=<?php echo $fila['id']; ?>" class="btn btn-danger" 
                                     onclick="return confirm('¿Estás seguro de que quieres eliminar este cliente?');">Eliminar</a>
                                     

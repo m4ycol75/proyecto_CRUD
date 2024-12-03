@@ -7,8 +7,8 @@ $usuario = new Usuario($conexion);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre = $_POST['nombre'];
-    $correo= $_POST['correo'];
-    $contraseña_encriptada = $_POST['contrasena'];
+    $correo= $_POST['email'];
+    $contraseña_encriptada = $_POST['password'];
 
     echo $usuario->registrarUsuario($nombre, $correo, $contraseña_encriptada);
 }
@@ -41,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Correo Electronico</label>
-                                    <input type="email" class="form-control" name="correo" placeholder="Ingrese su correo electronico">
+                                    <input type="email" class="form-control" name="email" placeholder="Ingrese su correo electronico">
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" name="contrasena" placeholder="Ingrese una contraseña">
+                                    <input type="password" class="form-control" name="password" placeholder="Ingrese una contraseña">
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" name="recuerdame">
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <button type="submit" class="btn btn-primary w-100">Registarse</button>
                         </form>
                         <div class="mb-3">
-                            <label for="">¿Ya tienes una cuenta? <a href="login.php">Inicia Sesion</a></label>
+                            <label for="">¿Ya tienes una cuenta? <a href="login.php">Inicia Sesion</a> o deseas volver al <a href="index.php">Inicio</a></label>
                         </div>
                     </div>
                 </div>
